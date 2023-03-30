@@ -27,21 +27,23 @@
       <li class="list-group-item">Item 2</li>
       <li class="list-group-item">Item 3</li>
       <li class="list-group-item">Item 4</li>
+      <li>Item 5</li>
+      
     </ul>
    </div>
   </div>
 
 </body>
 <script>
-    let item=document.getElementsByClassName("list-group-item")
-     for(let a of item)
-     a.style.fontWeight="bold"
-     
-     for(let b of item)
-     b.style.color="red"
+let item=document.getElementsByTagName("li")
+    item[4].innerHTML="hello"
+    item[4].style.backgroundColor="red"
+    item[4].style.fontWeight="bold"
 
-     item[2].style.backgroundColor="green"
+    console.log(item)
+    
 </script>
 </html>
 index.html
 Displaying index.html
+
