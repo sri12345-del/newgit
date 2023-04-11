@@ -1,0 +1,46 @@
+<script>
+    const user={
+       username:'suresh',
+       lastactivitytime:'13th of jan'
+    }
+    let post=[{title:'this is first',body:'first body'},
+ {title:'this is second', body:'second body'}]
+ 
+   function createpost(pos){
+    return new Promise((resolve,reject)=>{
+     setTimeout(()=>{
+       post.push(pos)
+       const err=false;
+       if(!err)
+       {
+          resolve(pos)
+       }
+       else{
+          reject('error')
+       }
+     },2000)
+    })
+   }
+   function delet(){
+    return new Promise((resolve,reject)=>{
+       setTimeout(() => { 
+          resolve(post.pop())
+       }, 1000);
+    })
+   }
+  function updatelastactivitytime(){
+    return new Promise((resolve,reject)=>{
+       setTimeout(()=>{
+          user.lastactivitytime=new Date().getTime()
+          resolve(user.lastactivitytime)
+       },1000)
+    })
+  }
+ 
+  Promise.all([createpost({title:'post five',body:'this is post five'}),
+  updatelastactivitytime()]).then(([creeateresol,updateresole])=>
+  {console.log(updateresole),console.log(creeateresol)}).then(delet)
+  .then((pos)=>console.log(pos))
+ 
+  
+ </script>
