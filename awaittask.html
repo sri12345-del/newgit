@@ -1,0 +1,48 @@
+<script>
+    console.log('promise1')
+    console.log('promise2')
+
+    const wifebringticket= new Promise((resolve,reject)=>{
+        setTimeout(()=>resolve('ticket'),3000)
+    })
+
+    const getpopcorn=wifebringticket.then((t)=>{
+      console.log("i am angry")
+      return new Promise((resolve,reject)=>resolve(`${t} popcorn`))
+    })
+
+    const butter=getpopcorn.then((t)=>{
+        console.log("husband bring butter")
+        return new Promise((resolve,reject)=>resolve(`${t} butter`))
+    })
+
+    butter.then((t)=>console.log(t))
+
+    const premovie=async()=>{
+        const promiseticket=new Promise((resolve,reject)=>{
+            setTimeout(()=>reject('ticket'),2000)
+        })
+        const getpopcorn= new Promise((resolve,reject)=>resolve(`popcorn`))
+
+        const addbutter= new Promise((resolve,reject)=>resolve(`butter`))
+
+        const getcolddrink=new Promise((resolve,reject)=>resolve('getcolddrink'))
+
+        let [popcorn,candy,cake]=await Promise.all([getpopcorn, addbutter,getcolddrink])
+        console.log(popcorn,candy,cake)
+
+        let ticket
+        try{
+            ticket=await promiseticket;
+        }
+        catch(e){
+            ticket='sad face'
+        }
+
+        return ticket
+    }
+    premovie().then((m)=>console.log(`promise ${m}`))
+
+    console.log('i am here')
+
+</script>
