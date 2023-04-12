@@ -1,0 +1,28 @@
+<script>
+     let post=[{title:'this is first',body:'first body'},
+ {title:'this is second', body:'second body'}]
+ 
+   const newfun=async()=>{
+    const createpost=new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            let x={title:"post five", body:'this is body'}
+            post.push(x)
+            resolve(x)
+        },2000)
+    })
+   
+    let result= await createpost;
+
+    const delet=new Promise((resolve,reject)=>{
+        resolve(post.pop())
+    })
+
+    let delpost=await delet;
+
+    let [resu,del]=await Promise.all([result,delet])
+
+    console.log(resu,del)
+   }
+
+   newfun()
+</script>
