@@ -1,0 +1,13 @@
+<script>
+ async function a(){
+  console.log('a')
+  let pro=await new Promise((res,rej)=>{
+    setTimeout(()=>res('i love her'),1000)
+  })
+    console.log(pro)
+  let pro2=await new Promise((res,rej)=>res("she love me"))
+  console.log(pro2)
+ 
+}
+a()
+</script>

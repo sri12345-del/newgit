@@ -89,6 +89,7 @@ axios.post(URL="https://crudcrud.com/api/9413e04e0b904d5088651a14d718e7ed/newapp
         deletbtn.type="button"
         deletbtn.value="delete"
         deletbtn.onclick=()=>{
+
             axios.delete(`https://crudcrud.com/api/9413e04e0b904d5088651a14d718e7ed/newappointment/${newobj._id}`)
             .then((res)=>console.log(res))
             .catch((err)=>console.log(err))

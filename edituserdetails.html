@@ -41,7 +41,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.5/axios.min.js"></script>
     <script>
 window.addEventListener("DOMContentLoaded",()=>{
-     axios.get(URL="https://crudcrud.com/api/9413e04e0b904d5088651a14d718e7ed/newappointment")
+     axios.get(URL="https://crudcrud.com/api/6763e43083f34365a2288355fe52f1e2/newappointment")
 .then((response)=>{
     for(let i=0; i<response.data.length; i++)
     {
@@ -58,7 +58,7 @@ const emailinput=document.querySelector("#email")
 const phone=document.querySelector("#phone")
 const ul=document.querySelector('#listofitems')
 const myform=document.querySelector("#my-form")
-myform=addEventListener("submit",onsubmit)
+myform.addEventListener("submit",onsubmit)
 function onsubmit(e){
     e.preventDefault()
         let newobj={
@@ -68,7 +68,7 @@ function onsubmit(e){
         }
         onscreen(newobj)
 
-axios.post(URL="https://crudcrud.com/api/9413e04e0b904d5088651a14d718e7ed/newappointment",newobj)
+axios.post(URL="https://crudcrud.com/api/6763e43083f34365a2288355fe52f1e2/newappointment",newobj)
      .then((response)=>{
         console.log(response)
      })
@@ -89,23 +89,23 @@ axios.post(URL="https://crudcrud.com/api/9413e04e0b904d5088651a14d718e7ed/newapp
         deletbtn.type="button"
         deletbtn.value="delete"
         deletbtn.onclick=()=>{
-            axios.delete(`https://crudcrud.com/api/9413e04e0b904d5088651a14d718e7ed/newappointment/${newobj._id}`)
+            axios.delete(`https://crudcrud.com/api/6763e43083f34365a2288355fe52f1e2/newappointment/${newobj._id}`)
             .then((res)=>console.log(res))
             .catch((err)=>console.log(err))
             parent.removeChild(li)
         }
-       
         let editbtn=document.createElement("input")
         editbtn.id="newobj._id"
         editbtn.type="button"
         editbtn.value="edit"
         editbtn.onclick=()=>{
+
            let item=JSON.parse(localStorage.getItem(newobj.email))
            nameinput.value=item.name
            emailinput.value=item.email
            phone.value=item.phone
            localStorage.removeItem(newobj.email)
-           axios.delete(`https://crudcrud.com/api/9413e04e0b904d5088651a14d718e7ed/newappointment/${newobj._id}`)
+           axios.delete(`https://crudcrud.com/api/6763e43083f34365a2288355fe52f1e2/newappointment/${newobj._id}`)
             .then((res)=>console.log(res))
             .catch((err)=>console.log(err))
             parent.removeChild(li)
@@ -114,6 +114,5 @@ axios.post(URL="https://crudcrud.com/api/9413e04e0b904d5088651a14d718e7ed/newapp
         li.appendChild(editbtn)
         parent.appendChild(li)  
     } 
-
-
+    
     </script>

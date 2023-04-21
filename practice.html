@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="margin: 25px;">
+    <section class="container">
+        <form action="#" id="my-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" required>
+            <label for="phone">Phone</label>
+            <input type="phone"  id="phone" required>
+            <button id="btn">Submit:</button>
+        </form>
+        <ul id="listofitems">
+
+        </ul>
+    </section>
+    
+</body>
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.5/axios.min.js"></script>
+<script>
+    window.addEventListener("DOMContentLoaded",()=>{
+        axios.get("https://crudcrud.com/api/6763e43083f34365a2288355fe52f1e2/practice")
+        .then((res)=>{
+            for(let i=0; i<res.data.length; i++)
+            {
+                onscreen(res.data[i])
+            }
+        })
+        .catch((err)=>console.log(err))
+    })
+
+    let form=document.getElementById("my-form")
+    let name=document.getElementById("name")
+    let email=document.getElementById('email')
+    let phone=document.getElementById('phone')
+    let button=document.getElementById('btn')
+    button.onclick=()=>{
+    
+        let obj={
+            name:name.value,
+            email:email.value,
+            phone:phone.value
+        }
+      onscreen(obj) 
+      axios.post("https://crudcrud.com/api/6763e43083f34365a2288355fe52f1e2/practice",obj)
+      .then((res)=>console.log(res))
+      .catch((err)=>console.log(err)) 
+      name.value=""
+      email.value=''
+      phone.value=""
+    }
+
+    function onscreen(obj){
+        let newobj=JSON.stringify(obj)
+        localStorage.setItem(obj.email,newobj)
+        let parent=document.getElementById("listofitems")
+        let li=document.createElement('li')
+        li.id=obj._id
+        li.textContent=obj.name+" "+obj.email+" "+obj.phone
+        let deletbtn=document.createElement('button')
+        deletbtn.id=obj._id
+        deletbtn.textContent="delete"
+        deletbtn.onclick=()=>{
+            axios.delete(`https://crudcrud.com/api/6763e43083f34365a2288355fe52f1e2/practice/${obj._id}`)
+            .then(()=>console.log('deleted'))
+            .catch((err)=>console.log(err))
+            localStorage.removeItem(obj.email)
+            parent.removeChild(li)
+        }
+        let editbtn=document.createElement('button')
+        editbtn.id=obj._id
+        editbtn.textContent="Editbtn"
+        editbtn.onclick=()=>{
+            axios.delete(`https://crudcrud.com/api/6763e43083f34365a2288355fe52f1e2/practice/${obj._id}`)
+            .then(()=>console.log('deleted'))
+            .catch((err)=>console.log(err))
+            name.value=obj.name;
+            email.value=obj.email;
+            phone.value=obj.phone;
+            localStorage.removeItem(obj.email)
+            parent.removeChild(li)
+        }
+        li.appendChild(deletbtn)
+        li.appendChild(editbtn)
+        parent.appendChild(li)
+    }
+</script>

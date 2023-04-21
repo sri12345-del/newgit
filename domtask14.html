@@ -21,7 +21,7 @@
             <div class="msg"></div>
             <div>
                 <label for="name">Name:</label>
-                <input type="text" id="name">
+                <input type="text" id="name" value="srini">
             </div>
             <div>
                 <label for="email">Email: </label>
@@ -33,17 +33,25 @@
             </div>
             <input class="btn" type="submit" value="submit">
         </form>
-        <ul id="listofitems"></ul>
+        <ul id="listofitems">
+        <li class="listitem">item1</li>
+        <li class="listitem">item2</li>
+        <li class="listitem">item3</li>
+        <li class="listitem">item4</li>
+    </ul>
     </section>
     </section>
 
-    <script>
+    <script src="index.js">
+let arr=document.querySelectorAll('.listitem')
+let sty=arr[1].style.backgroundColor="red"
+console.log(sty)
 const nameinput=document.querySelector("#name")
 const emailinput=document.querySelector("#email")
 const phone=document.querySelector("#phone")
 const ul=document.querySelector('#listofitems')
 const myform=document.querySelector("#my-form")
-myform=addEventListener("submit",onsubmit)
+myform.addEventListener("submit",onsubmit)
 function onsubmit(e){
     e.preventDefault()
         let newobj={
@@ -77,9 +85,6 @@ function onsubmit(e){
         li.appendChild(deletbtn)
         li.appendChild(editbtn)
         parent.appendChild(li)
-       
-        
-       
 }
 
     </script>
