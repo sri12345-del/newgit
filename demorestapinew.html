@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="margin: 50px;">
+    <h2 style="text-align: center; background-color: bisque;" >(REST API DEMO PROJECT) THIRUPATHI GENERAL STORE</h2>
+    <form action="">
+        <label for="name">CandyName:</label>
+        <input type="text" id="CandyName" name="name" required>
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description" required>
+        <label for="price">Price:</label>
+        <input type="price" id="price" name="price" required>
+        <label for="quality">Quantity:</label>
+        <input type="number" id="quality" name="quality" required>
+        <button id="button">Additem</button>
+
+    </form>
+    <ul id="listofitems"></ul>
+</body>
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.5/axios.min.js"></script>
+<script>
+    window.addEventListener("DOMContentLoaded",async()=>{
+        let msg=axios.get("https://crudcrud.com/api/d70083bd76ba43559abe77a75d67addc/restapiproject")
+        try{
+            res=await msg
+            for(let i=0; i<res.data.length; i++)
+            {
+                onscreen(res.data[i])
+            }
+        }catch(err){
+            console.log(err)
+        }
+        
+    })
+    const button=document.getElementById("button")
+    const CandyName=document.getElementById("CandyName")
+    const description=document.getElementById("description")
+    const price=document.getElementById("price")
+    const quantity=document.getElementById("quality")
+    button.onclick=async(x)=>{
+         x.preventDefault();
+        let obj={
+            CandyName:CandyName.value,
+            description:description.value,
+            price:price.value,
+            quantity:quantity.value
+        }
+        let msg=axios.post("https://crudcrud.com/api/d70083bd76ba43559abe77a75d67addc/restapiproject",obj)
+        try{
+            res=await msg
+            onscreen(res.data)
+            console.log(res)
+        }catch(err){
+            console.log(err)
+        }
+        CandyName.value=""
+        description.value=""
+        price.value=""
+        quantity.value=""
+        
+    }
+    async function onscreen(obj){
+       const parent=document.getElementById("listofitems")
+       const li=document.createElement("li")
+       li.id=obj._id
+       li.textContent=obj.CandyName+" "+obj.description+" "+obj.price+" "+obj.quantity+" "
+       const buy1=document.createElement("button")
+       buy1.id=obj._id
+       buy1.textContent="Buy1"
+       buy1.onclick=async()=>{
+        let res
+        if(obj.quantity>1)
+        {
+            let msg=axios.put(`https://crudcrud.com/api/d70083bd76ba43559abe77a75d67addc/restapiproject/${obj._id}`,{
+            CandyName:obj.CandyName,
+            description:obj.description,
+            price:obj.price,
+            quantity:obj.quantity-1
+            })
+            try{
+                res= await msg
+                window.location.reload()
+             }catch(e){
+                res=e
+            }
+        }
+        else{  
+            let msg=axios.delete(`https://crudcrud.com/api/d70083bd76ba43559abe77a75d67addc/restapiproject/${obj._id}`)
+            let res
+            try{
+                res= await msg
+             }catch(e){
+                res=e
+            }
+            parent.removeChild(li)
+            console.log(res)
+        }
+       }
+       li.appendChild(buy1)
+       const buy2=document.createElement("button")
+       buy2.id=obj._id
+       buy2.textContent="Buy2"
+       buy2.onclick=async()=>{
+        if(obj.quantity>2)
+        {
+            let msg=axios.put(`https://crudcrud.com/api/d70083bd76ba43559abe77a75d67addc/restapiproject/${obj._id}`,{
+            CandyName:obj.CandyName,
+            description:obj.description,
+            price:obj.price,
+            quantity:obj.quantity-2
+            })
+            let res;
+            try{
+                res= await msg
+                window.location.reload()
+             }catch(e){
+                res=e
+            }
+            console.log(res)
+        }
+        else{  
+            let msg=axios.delete(`https://crudcrud.com/api/d70083bd76ba43559abe77a75d67addc/restapiproject/${obj._id}`)
+            let res
+            try{
+                res= await msg
+             }catch(e){
+                res=e
+            }
+            console.log(res)
+            parent.removeChild(li)
+        }
+       }
+       li.appendChild(buy2)
+       const buy3=document.createElement("button")
+       buy2.id=obj._id
+       buy3.textContent="Buy3"
+       buy3.onclick=async()=>{
+        if(obj.quantity>3)
+        {
+            let msg=axios.put(`https://crudcrud.com/api/d70083bd76ba43559abe77a75d67addc/restapiproject/${obj._id}`,{
+            CandyName:obj.CandyName,
+            description:obj.description,
+            price:obj.price,
+            quantity:obj.quantity-3
+            })
+            let res;
+            try{
+                res= await msg
+                window.location.reload()
+             }catch(e){
+                res=e
+            }console.log(res)
+        }
+        else{  
+            let msg=axios.delete(`https://crudcrud.com/api/d70083bd76ba43559abe77a75d67addc/restapiproject/${obj._id}`)
+            let res;
+            try{
+                res= await msg
+             }catch(e){
+                res=e
+            }
+            console.log(res)
+            parent.removeChild(li)
+        }
+       }
+       li.appendChild(buy3)
+       parent.appendChild(li)
+ 
+    }
+</script>
